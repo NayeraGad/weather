@@ -1,0 +1,39 @@
+span {
+    display: block;
+}
+
+/* Global */
+.input-btn {
+    top: 4px;
+    bottom: 4px;
+    right: 4px;
+}
+
+/* Cards */
+.card:first-child .card-header {
+    background-color: #2c2f33;
+}
+
+.card:first-child .card-body {
+    background-color: #30353a;
+}
+
+.temp {
+    font-size: calc(50px + 1.2vw);
+}
+
+/* Footer */
+.social-media-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #1e202b;
+    color: #0dcaf0;
+}
+
+.social-media-icon:hover {
+    background-color: #0dcaf0;
+    color: white;
+}
