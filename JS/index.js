@@ -58,7 +58,7 @@ function displayCurrent(data) {
   let date = d.getDate();
   let month = months[d.getMonth()];
 
-  forecastCards.innerHTML = `<div class="card col-md-12 col-lg-4 px-0">
+  forecastCards.innerHTML = `<div class="currentCard card col-md-12 col-lg-4 px-0">
               <header class="card-header d-flex justify-content-between">
                 <span>${day}</span>
                 <span>${date} ${month}</span>
