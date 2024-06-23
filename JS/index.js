@@ -1,5 +1,6 @@
 const searchInput = document.querySelector(".search");
 const forecastCards = document.querySelector(".forecastCards");
+const locationBtn = document.querySelector(".fa-location-dot");
 
 const days = [
   "Sunday",
@@ -33,8 +34,6 @@ async function search(name) {
       `https://api.weatherapi.com/v1/forecast.json?key=640a9817d691451eb35152817242206&q=${name}&days=3`
     );
 
-    console.log(res);
-
     if (!res.ok) {
       throw new Error(res.status);
     }
@@ -42,12 +41,44 @@ async function search(name) {
     // Backend response
     let data = await res.json();
 
-    console.log(data);
-    console.log(data.forecast);
     displayCurrent(data);
     displayForecast(data.forecast.forecastday);
   } catch (error) {
     console.log(error);
+  }
+}
+
+// Get the data of user's current location
+async function getCurrentLocation() {
+  if ("geolocation" in navigator) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      const response = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=640a9817d691451eb35152817242206&q=${latitude},${longitude}`
+      );
+
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+
+      const data = await response.json();
+
+      const location = data.location.name;
+      searchInput.value = location;
+      search(location);
+
+      console.log(location);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    console.log("Geolocation is not supported by this browser.");
   }
 }
 
@@ -91,8 +122,6 @@ function displayForecast(data) {
     let dayIndex = (d.getDay() + i) % 7; // Calculate the remainder to stay within the range
     let day = days[dayIndex];
 
-    console.log(day);
-
     forecastCards.innerHTML += `<div class="card col-md-6 col-lg-4 px-0 text-center">
       <header class="card-header ">
         <span>${day}</span>
@@ -119,5 +148,7 @@ function displayForecast(data) {
 searchInput.addEventListener("input", function (e) {
   search(e.target.value);
 });
+
+locationBtn.addEventListener("click", getCurrentLocation);
 
 search("alexandria");

@@ -4,9 +4,8 @@ span {
 
 /* Global */
 .input-btn {
-    top: 4px;
-    bottom: 4px;
-    right: 4px;
+    top: 0;
+    right: 0;
 }
 
 /* Navbar */
@@ -48,8 +47,12 @@ span {
         border-bottom: 0;
     }
 }
-
 /* End of Navbar */
+
+/* Search input */
+.fa-location-dot {
+    cursor: pointer;
+}
 
 /* Cards */
 .hero {
